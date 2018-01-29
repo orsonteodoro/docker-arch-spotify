@@ -21,6 +21,8 @@
 
 sudo groupmod --gid $AUDIO_GID audio
 
+if [ -z "$TRAVISCI" ] ; then
+
 aplay -l
 out=$(aplay -l)
 echo $out | grep "no soundcards found..."
@@ -40,3 +42,7 @@ fi
 # see https://community.spotify.com/t5/Desktop-Mac-old/Spotify-on-MAC-blocked-while-opening/td-p/1477123/page/2
 
 PULSE_SERVER="unix:/run/user/1000/pulse/native" spotify --disable-accelerated-layers --disable-accelerated-fixed-root-background
+
+else
+	echo $(spotify --help) | grep 'Output the version of the app.'
+fi
