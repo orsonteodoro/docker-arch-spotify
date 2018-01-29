@@ -19,8 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-sudo groupmod --gid $AUDIO_GID audio
-
 aplay -l
 out=$(aplay -l)
 echo $out | grep "no soundcards found..."

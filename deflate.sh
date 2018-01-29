@@ -30,28 +30,32 @@ sudo pacman --noconfirm -R inetutils
 echo "Removing mount and other utils"
 sudo rm $(pacman -Ql util-linux) 2&>1 > /dev/null || true
 
-echo "Removing compiler essentials"
-sudo rm /usr/bin/curl
-#sudo rm /usr/bin/wget
-sudo rm /usr/bin/gcc
-sudo rm /usr/bin/g++
-#sudo rm /usr/bin/clang
-#sudo rm /usr/bin/clang++
-sudo rm /usr/sbin/perl
-sudo rm /usr/sbin/as
-
-echo "Removing web utilities"
-#sudo rm /usr/bin/curl
-#sudo rm /usr/bin/wget
-
 echo "Removing shadow"
 sudo rm $(pacman -Ql shadow) 2&>1 > /dev/null || true
 
 echo "Removing coreutils and other utilities"
-sudo rm $(pacman -Ql coreutils | grep -v "rm" | grep -v "echo") 2&>1 /dev/null || true
+sudo rm $(pacman -Ql coreutils | grep -v "rm" | grep -v "echo" | grep -v "find" | grep -v "xargs" | grep -v "ls") 2&>1 /dev/null || true
 
 echo "Removing pacman"
 sudo rm $(pacman -Ql pacman) 2&>1 > /dev/null || true
+
+echo "Remove everything in the /usr/bin folder except spotify"
+find /usr/bin ! -name "rm" ! -name "find" ! -name "xargs" ! -name "spotify" ! -name "echo" ! -name "sudo" ! \
+	-name "sh" ! -name "stat" ! -name "bash" ! -name "pactl" ! -name "start-spotify.sh" ! -name "aplay" ! -name "grep" ! -name "deflate.sh" \
+	-print0 | xargs -0 rm 2&>1 > /dev/null
+
+find /usr/bin ! -name "rm" ! -name "find" ! -name "xargs" ! -name "spotify" ! -name "echo" ! -name "sudo" ! -name "pulseaudio" ! \
+	-name "sh" ! -name "stat" ! -name "bash" ! -name "pactl" ! -name "start-spotify.sh" ! -name "aplay" ! -name "grep" ! -name "deflate.sh" \
+	-name "dbus-daemon" -print0 | xargs -0 rm 2&>1 > /dev/null
+
+echo "Removing find, xargs, rm"
+rm /usr/bin/find
+rm /usr/bin/xargs
+echo "" /usr/bin/rm
+
+echo "Removing programming languages  headers"
+rm -rf /usr/lib/gcc/*/*/include
+rm -rf /usr/include
 
 echo "Removing rm"
 sudo echo "" > /bin/rm
