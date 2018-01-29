@@ -5,6 +5,8 @@ sudo: required
 services:
   - docker
 
-before_install:
-  - chmod +x
-  - ./compile.sh
+deploy:
+  provider: script
+  script: compile.sh
+  on:
+    branch: master
