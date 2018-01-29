@@ -34,3 +34,5 @@ The following steps are required for the sound card to be detected:
 The files in this repository alone are licensed under MIT.
 
 Trademarks and copyrights referenced belong to their respective owners.
+
+Software pulled by this container are not in the scope of this license.
