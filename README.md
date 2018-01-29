@@ -16,18 +16,7 @@ It was tested on a host with Alpine Linux.
 4. `./compile.sh`
 5. `chmod +x run.sh`
 6. `./run.sh`
-
-After run executes.  It will place you in the container's shell.  The following steps inside this container shell are required for the sound card to be detected:
-
-7. `sudo passwd`
-8. `su`
-9. `su spotify`
-10. `aplay -l` (should detect the sound card devices)
-11. `spotify`
-
-(If you want PulseAudio, you need to do a `pulseaudio -D --exit-idle-time=-1` inside the container)
-
-12.  If you use Facebook, you can use your Facebook user name and password to logon.
+7.  If you use Facebook, you can use your Facebook user name and password to logon.
 
 ### License
 
