@@ -71,8 +71,8 @@ RUN sudo pacman --noconfirm -S pulseaudio-alsa
 RUN sudo pacman --noconfirm -S alsa-lib
 
 RUN sudo pacman --noconfirm -S alsa-utils
-RUN sudo pacman --noconfirm -S mplayer
-RUN sudo pacman --noconfirm -S nano
+#RUN sudo pacman --noconfirm -S mplayer
+#RUN sudo pacman --noconfirm -S nano
 
 RUN sudo sed -i -e 's|#load-module module-native-protocol-unix|load-module module-native-protocol-unix|g' /etc/pulse/default.pa || return 1
 RUN sudo sed -i -e 's|#load-module module-alsa-sink|load-module module-alsa-sink device=dmix|g' /etc/pulse/default.pa || return 1
@@ -84,6 +84,5 @@ ADD start-spotify.sh /usr/bin/start-spotify.sh
 RUN sudo chmod +x /usr/bin/start-spotify.sh
 
 WORKDIR /home/spotify
-#RUN curl -O http://www.sample-videos.com/audio/mp3/wave.mp3
 
 ENTRYPOINT "/usr/bin/start-spotify.sh"
