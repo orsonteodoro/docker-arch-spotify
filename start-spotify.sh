@@ -33,9 +33,9 @@ sudo dbus-daemon --system
 sudo aplay -l
 out=$(sudo aplay -l)
 echo $out | grep "no soundcards found..."
-if [ "$?" -ne "0" ]; then
+if [ "$?" -eq "0" ]; then
 	echo "failure detecting cards.  send a github issue (bug report) on the project page to fix this."
-	return 1
+	exit 1
 fi
 
 #uncomment it if you don't have pulseaudio
