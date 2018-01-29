@@ -1,10 +1,5 @@
 language: bash
 
-sudo: required
-
-services:
-  - docker
-
 deploy:
   provider: script
   script: compile.sh
