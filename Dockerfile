@@ -25,7 +25,6 @@ MAINTAINER Orson Teodoro <orsonteodoro@hotmail.com>
 RUN pacman --noconfirm -Syu
 
 RUN pacman --noconfirm -S base-devel
-
 RUN pacman --noconfirm -S xorg-server
 RUN pacman --noconfirm -S shadow
 RUN pacman --noconfirm -S sudo
@@ -71,8 +70,11 @@ RUN sudo pacman --noconfirm -S pulseaudio-alsa
 RUN sudo pacman --noconfirm -S alsa-lib
 
 RUN sudo pacman --noconfirm -S alsa-utils
-#RUN sudo pacman --noconfirm -S mplayer
-#RUN sudo pacman --noconfirm -S nano
+
+ADD debug-tools.sh /usr/bin/debug-tools.sh
+RUN sudo chmod +x /usr/bin/debug-tools.sh
+ARG debug
+RUN sudo /usr/bin/debug-tools.sh $debug
 
 RUN sudo sed -i -e 's|#load-module module-native-protocol-unix|load-module module-native-protocol-unix|g' /etc/pulse/default.pa || return 1
 RUN sudo sed -i -e 's|#load-module module-alsa-sink|load-module module-alsa-sink device=dmix|g' /etc/pulse/default.pa || return 1
@@ -82,6 +84,21 @@ USER spotify
 
 ADD start-spotify.sh /usr/bin/start-spotify.sh
 RUN sudo chmod +x /usr/bin/start-spotify.sh
+
+#quirky
+USER root
+ADD start-dbus.sh /usr/bin/start-dbus.sh
+RUN sudo chmod +x /usr/bin/start-dbus.sh
+RUN /usr/bin/start-dbus.sh
+USER spotify
+
+#harden environment... make it static
+ADD deflate.sh /usr/bin/deflate.sh
+RUN sudo chmod +x /usr/bin/deflate.sh
+RUN sudo /usr/bin/deflate.sh
+
+#aplay -l can detect sound cards on root or su from root
+USER root
 
 WORKDIR /home/spotify
 

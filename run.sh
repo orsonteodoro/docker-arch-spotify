@@ -24,10 +24,10 @@ xhost +local:
 USER_UID=$(id -u)
 AUDIO_GID=$(cat /etc/group | grep audio | cut -d: -f3)
 
-docker run -i -e DISPLAY="$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
-				-v /run/user/$USER_UID/pulse:/run/user/$USER_UID/pulse  \
-				-v ~/.config/pulse/cookie:/run/pulse/cookie \
-				-e AUDIO_GID=$AUDIO_GID \
-				--device /dev/snd \
-				   --privileged \
-				-t spotify /bin/bash
+docker run -i -e DISPLAY="$DISPLAY" \
+	      -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+	      -v /run/user/$USER_UID/pulse:/run/user/$USER_UID/pulse  \
+	      -v ~/.config/pulse/cookie:/run/pulse/cookie \
+	      -e AUDIO_GID=$AUDIO_GID \
+	      --device /dev/snd \
+	      -t spotify
