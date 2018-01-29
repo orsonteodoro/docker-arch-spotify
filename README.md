@@ -16,6 +16,7 @@ It was tested on a host with Alpine Linux.
 6. `./run.sh`
 
 The following steps are required for the sound card to be detected:
+
 7. `sudo passwd`
 8. `su`
 9. `su spotify`
