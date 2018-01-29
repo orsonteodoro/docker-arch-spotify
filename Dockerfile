@@ -92,6 +92,13 @@ RUN sudo chmod +x /usr/bin/start-dbus.sh
 RUN /usr/bin/start-dbus.sh
 USER spotify
 
+WORKDIR /home/spotify
+
+ADD travisci-test.sh /usr/bin/travisci-test.sh
+RUN chmod +x /usr/bin/travisci-test.sh
+ARG travisci
+RUN /usr/bin/travisci-test.sh $travisci
+
 #harden environment... make it static
 ADD deflate.sh /usr/bin/deflate.sh
 RUN sudo chmod +x /usr/bin/deflate.sh
@@ -99,12 +106,5 @@ RUN sudo /usr/bin/deflate.sh
 
 #aplay -l can detect sound cards on root or su from root
 USER root
-
-WORKDIR /home/spotify
-
-ADD travisci-test.sh /usr/bin/travisci-test.sh
-RUN chmod +x /usr/bin/travisci-test.sh
-ARG travisci
-RUN /usr/bin/travisci-test.sh $travisci
 
 ENTRYPOINT "/usr/bin/start-spotify.sh"
