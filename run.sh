@@ -23,10 +23,15 @@ xhost +local:
 
 USER_UID=$(id -u)
 AUDIO_GID=$(cat /etc/group | grep audio | cut -d: -f3)
+ALSA_CARD="hw:0,0"
+
+USE_CONTAINER_PULSEAUDIO=
 
 docker run -i -e DISPLAY="$DISPLAY" \
 	      -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
 	      -v /run/user/$USER_UID/pulse:/run/user/$USER_UID/pulse  \
-	      -v ~/.config/pulse/cookie:/run/pulse/cookie \
+	      -e USE_CONTAINER_PULSEAUDIO="$USE_CONTAINER_PULSEAUDIO" \
+	      -e AUDIO_GID=$AUDIO_GID \
+	      -e ALSA_CARD="$ALSA_CARD" \
 	      --device /dev/snd \
 	      -t spotify

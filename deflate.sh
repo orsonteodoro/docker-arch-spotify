@@ -25,7 +25,6 @@ sudo pacman --noconfirm -R git
 
 echo "Removing inetutils (containing telnet)"
 sudo pacman --noconfirm -R inetutils
-#sudo rm $(pacman -Ql inetutils) 2&>1 > /dev/null || true
 
 echo "Removing mount and other utils"
 sudo rm $(pacman -Ql util-linux) 2&>1 > /dev/null || true
@@ -41,17 +40,13 @@ sudo rm $(pacman -Ql pacman) 2&>1 > /dev/null || true
 
 echo "Remove everything in the /usr/bin folder except spotify"
 find /usr/bin ! -name "rm" ! -name "find" ! -name "xargs" ! -name "spotify" ! -name "echo" ! -name "sudo" ! \
-	-name "sh" ! -name "stat" ! -name "bash" ! -name "pactl" ! -name "start-spotify.sh" ! -name "aplay" ! -name "grep" ! -name "deflate.sh" \
+	-name "sh" ! -name "stat" ! -name "bash" ! -name "pactl" ! -name "start-spotify.sh" ! -name "aplay" ! -name "grep" ! -name "deflate.sh" ! -name "dbus-daemon" ! -name "dbus-uuidgen" ! -name "groupmod" \
+	! -name "mkdir" ! -name "pulseaudio"  \
 	-print0 | xargs -0 rm 2&>1 > /dev/null
 
-find /usr/bin ! -name "rm" ! -name "find" ! -name "xargs" ! -name "spotify" ! -name "echo" ! -name "sudo" ! -name "pulseaudio" ! \
-	-name "sh" ! -name "stat" ! -name "bash" ! -name "pactl" ! -name "start-spotify.sh" ! -name "aplay" ! -name "grep" ! -name "deflate.sh" \
-	-name "dbus-daemon" -print0 | xargs -0 rm 2&>1 > /dev/null
-
-echo "Removing find, xargs, rm"
+echo "Removing find, xargs"
 rm /usr/bin/find
 rm /usr/bin/xargs
-echo "" /usr/bin/rm
 
 echo "Removing programming languages  headers"
 rm -rf /usr/lib/gcc/*/*/include
@@ -59,4 +54,3 @@ rm -rf /usr/include
 
 echo "Removing rm"
 sudo echo "" > /bin/rm
-

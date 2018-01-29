@@ -77,20 +77,13 @@ ARG debug
 RUN sudo /usr/bin/debug-tools.sh $debug
 
 RUN sudo sed -i -e 's|#load-module module-native-protocol-unix|load-module module-native-protocol-unix|g' /etc/pulse/default.pa || return 1
-RUN sudo sed -i -e 's|#load-module module-alsa-sink|load-module module-alsa-sink device=dmix|g' /etc/pulse/default.pa || return 1
+RUN sudo sed -i -e 's|load-module module-udev-detect|#load-module module-udev-detect|g' /etc/pulse/default.pa || return 1
 USER root
 RUN echo -e ".ifexists module-x11-publish.so\nload-module module-x11-publish\n.endif\n" >> /etc/pulse/default.pa || return 1
 USER spotify
 
 ADD start-spotify.sh /usr/bin/start-spotify.sh
 RUN sudo chmod +x /usr/bin/start-spotify.sh
-
-#quirky
-USER root
-ADD start-dbus.sh /usr/bin/start-dbus.sh
-RUN sudo chmod +x /usr/bin/start-dbus.sh
-RUN /usr/bin/start-dbus.sh
-USER spotify
 
 WORKDIR /home/spotify
 
@@ -104,7 +97,6 @@ ADD deflate.sh /usr/bin/deflate.sh
 RUN sudo chmod +x /usr/bin/deflate.sh
 RUN sudo /usr/bin/deflate.sh
 
-#aplay -l can detect sound cards on root or su from root
-USER root
+USER spotify
 
 ENTRYPOINT "/usr/bin/start-spotify.sh"

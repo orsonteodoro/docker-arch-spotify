@@ -19,8 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-aplay -l
-out=$(aplay -l)
+if [ -n "$USE_CONTAINER_PULSEAUDIO" ]; then
+	sudo groupmod --gid $AUDIO_GID audio
+fi
+
+#it gets quirky here
+#the block below doesn't work in Dockerfile but here
+
+sudo dbus-uuidgen --ensure=/etc/machine-id
+sudo mkdir /run/dbus
+sudo dbus-daemon --system
+
+sudo aplay -l
+out=$(sudo aplay -l)
 echo $out | grep "no soundcards found..."
 if [ "$?" -eq "0" ]; then
 	echo "failure detecting cards.  send a github issue (bug report) on the project page to fix this."
@@ -29,12 +40,14 @@ fi
 
 #uncomment it if you don't have pulseaudio
 #this only works if you can see the sound card list with aplay -l
-if [ -n "USE_CONTAINER_PULSEAUDIO" ]; then
-	pulseaudio -D --exit-idle-time=-1 -v || return 1
+if [ -n "$USE_CONTAINER_PULSEAUDIO" ]; then
+	if [ -n "$ALSA_CARD" ] ; then
+		sudo sed -i -e "s|#load-module module-alsa-sink|load-module module-alsa-sink device=$ALSA_CARD|g" /etc/pulse/default.pa || return 1
+	else
+		sudo sed -i -e "s|#load-module module-alsa-sink|load-module module-alsa-sink device=hw0,0|g" /etc/pulse/default.pa || return 1
+	fi
+
+	sudo -u spotify pulseaudio -D --exit-idle-time=-1 -v || return 1
 fi
 
-# there is a black screen problem confirmed
-# see https://community.spotify.com/t5/Desktop-Windows/Spotify-Black-screen/td-p/738117 for black screen
-# see https://community.spotify.com/t5/Desktop-Mac-old/Spotify-on-MAC-blocked-while-opening/td-p/1477123/page/2
-
-PULSE_SERVER="unix:/run/user/1000/pulse/native" spotify --disable-accelerated-layers --disable-accelerated-fixed-root-background
+PULSE_SERVER="unix:/run/user/1000/pulse/native" sudo spotify
