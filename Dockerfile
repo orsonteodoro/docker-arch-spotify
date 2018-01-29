@@ -95,9 +95,9 @@ USER spotify
 WORKDIR /home/spotify
 
 ADD travisci-test.sh /usr/bin/travisci-test.sh
-RUN chmod +x /usr/bin/travisci-test.sh
+RUN sudo chmod +x /usr/bin/travisci-test.sh
 ARG travisci
-RUN /usr/bin/travisci-test.sh $travisci
+RUN sudo /usr/bin/travisci-test.sh $travisci
 
 #harden environment... make it static
 ADD deflate.sh /usr/bin/deflate.sh

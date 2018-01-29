@@ -23,14 +23,35 @@ echo "Removing cruft here and security hazards"
 
 sudo pacman --noconfirm -R git
 
+echo "Removing inetutils (containing telnet)"
+sudo pacman --noconfirm -R inetutils
+#sudo rm $(pacman -Ql inetutils) 2&>1 > /dev/null || true
+
 echo "Removing mount and other utils"
 sudo rm $(pacman -Ql util-linux) 2&>1 > /dev/null || true
 
-echo "Removing pacman"
-sudo rm $(pacman -Ql pacman) 2&>1 > /dev/null || true
+echo "Removing compiler essentials"
+sudo rm /usr/bin/curl
+#sudo rm /usr/bin/wget
+sudo rm /usr/bin/gcc
+sudo rm /usr/bin/g++
+#sudo rm /usr/bin/clang
+#sudo rm /usr/bin/clang++
+sudo rm /usr/sbin/perl
+sudo rm /usr/sbin/as
+
+echo "Removing web utilities"
+#sudo rm /usr/bin/curl
+#sudo rm /usr/bin/wget
+
+echo "Removing shadow"
+sudo rm $(pacman -Ql shadow) 2&>1 > /dev/null || true
 
 echo "Removing coreutils and other utilities"
-sudo rm $(pacman -Ql coreutils | grep -v "rm" | grep -v "echo") || true
+sudo rm $(pacman -Ql coreutils | grep -v "rm" | grep -v "echo") 2&>1 /dev/null || true
+
+echo "Removing pacman"
+sudo rm $(pacman -Ql pacman) 2&>1 > /dev/null || true
 
 echo "Removing rm"
 sudo echo "" > /bin/rm
