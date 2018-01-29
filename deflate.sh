@@ -19,9 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-echo "Removing cruft here"
+echo "Removing cruft here and security hazards"
 
 sudo pacman --noconfirm -R git
 
+echo "Removing mount and other utils"
+sudo rm $(pacman -Ql util-linux) 2&>1 > /dev/null || true
+
 echo "Removing pacman"
 sudo rm $(pacman -Ql pacman) 2&>1 > /dev/null || true
+
+echo "Removing coreutils and other utilities"
+sudo rm $(pacman -Ql coreutils | grep -v "rm" | grep -v "echo") || true
+
+echo "Removing rm"
+sudo echo "" > /bin/rm
+
