@@ -26,7 +26,7 @@ AUDIO_GID=$(cat /etc/group | grep audio | cut -d: -f3)
 
 sleep 5
 
-docker run -i -e DISPLAY=":0.0" -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+docker run -i -e DISPLAY="$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
 				-v /run/user/$USER_UID/pulse:/run/user/$USER_UID/pulse  \
 				-v ~/.config/pulse/cookie:/run/pulse/cookie \
 				-e AUDIO_GID=$AUDIO_GID \
