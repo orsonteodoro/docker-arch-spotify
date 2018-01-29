@@ -10,9 +10,9 @@ It was tested on a host with Alpine Linux.
 
 1. `git clone https://github.com/orsonteodoro/docker-arch-spotify.git`
 2. `cd docker-arch-spotify`
-3. chmod +x compile.sh
+3. `chmod +x compile.sh`
 4. `./compile.sh`
-5. chmod +x run.sh
+5. `chmod +x run.sh`
 6. `./run.sh`
 
 The following steps are required for the sound card to be detected:
