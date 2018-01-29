@@ -20,6 +20,10 @@ This requires the Docker package to use.
 6. `./run.sh`
 7.  If you use Facebook, you can use your Facebook user name and password to logon.
 
+### Bugs
+
+It causes a black screen from time-to-time.
+
 ### License
 
 The files in this repository alone are licensed under MIT.
