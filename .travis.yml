@@ -5,4 +5,3 @@ services:
   
 before_install:
 - docker build -t spotify .
-- docker run -t spotify /bin/sh -c "echo $(spotify --help) | grep 'Output the version of the app.'"
