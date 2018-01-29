@@ -1,6 +1,6 @@
 # docker-arch-spotify
 
-This is a container containing Spotify.  It works with ALSA.
+This is a container containing Spotify.  It works with ALSA but can be configured or altered for PulseAudio.
 
 Getting the container to get the soundcard(s) detected takes some work but at least it works.  What I would like to see is passwordless su so we can just go straight to Spotify, but it's kind of complicated.
 
