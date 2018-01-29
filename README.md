@@ -6,6 +6,8 @@ Getting the container to get the soundcard(s) detected takes some work but at le
 
 It should work with hardened kernels with grsecurity.
 
+Since it uses ALSA, you may only be able to use it in the container once your host releases the sound card.
+
 It was tested on a host with Alpine Linux.
 
 1. `git clone https://github.com/orsonteodoro/docker-arch-spotify.git`
