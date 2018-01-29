@@ -39,5 +39,4 @@ fi
 # see https://community.spotify.com/t5/Desktop-Windows/Spotify-Black-screen/td-p/738117 for black screen
 # see https://community.spotify.com/t5/Desktop-Mac-old/Spotify-on-MAC-blocked-while-opening/td-p/1477123/page/2
 
-#PULSE_SERVER="unix:/run/user/1000/pulse/native" spotify --disable-accelerated-layers --disable-accelerated-fixed-root-background
-bash -i
+PULSE_SERVER="unix:/run/user/1000/pulse/native" spotify --disable-accelerated-layers --disable-accelerated-fixed-root-background
