@@ -10,6 +10,8 @@ Since it uses ALSA, you may only be able to use it in the container once your ho
 
 It was tested on a host with Alpine Linux.
 
+This requires the Docker package to use.
+
 1. `git clone https://github.com/orsonteodoro/docker-arch-spotify.git`
 2. `cd docker-arch-spotify`
 3. `chmod +x compile.sh`
