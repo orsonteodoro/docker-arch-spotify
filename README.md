@@ -1,4 +1,4 @@
-# docker-arch-spotify
+# docker-arch-spotify-PaXmarked
 
 This is a container containing Spotify.  It works with ALSA but can be configured or altered for PulseAudio.
 
