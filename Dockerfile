@@ -102,4 +102,9 @@ USER root
 
 WORKDIR /home/spotify
 
+ADD travisci-test.sh /usr/bin/travisci-test.sh
+RUN chmod +x /usr/bin/travisci-test.sh
+ARG travisci
+RUN /usr/bin/travisci-test.sh
+
 ENTRYPOINT "/usr/bin/start-spotify.sh"
