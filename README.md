@@ -17,7 +17,7 @@ It was tested on a host with Alpine Linux.
 5. `chmod +x run.sh`
 6. `./run.sh`
 
-The following steps are required for the sound card to be detected:
+After run executes.  It will place you in the container's shell.  The following steps inside this container shell are required for the sound card to be detected:
 
 7. `sudo passwd`
 8. `su`
