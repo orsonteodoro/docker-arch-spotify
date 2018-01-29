@@ -4,5 +4,5 @@ services:
   - docker
   
 before_install:
-  docker build -t spotify .
-  docker run -t spotify /bin/sh -c "echo $(spotify --help) | grep 'Output the version of the app.'"
+- docker build -t spotify .
+- docker run -t spotify /bin/sh -c "echo $(spotify --help) | grep 'Output the version of the app.'"
