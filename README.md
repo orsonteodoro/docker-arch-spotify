@@ -1,5 +1,7 @@
 # docker-arch-spotify-PaXmarked
 
+[![Build Status](https://travis-ci.org/orsonteodoro/docker-arch-spotify-PaXmarked.svg?branch=master)](https://travis-ci.org/orsonteodoro/docker-arch-spotify-PaXmarked)
+
 This is a container containing Spotify.  It works with ALSA but can be configured or altered for PulseAudio.
 
 Getting the container to get the soundcard(s) detected takes some work but at least it works.  What I would like to see is passwordless su so we can just go straight to Spotify, but it's kind of complicated.  It is not seamless because of the su password check restrictions.
