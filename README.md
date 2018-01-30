@@ -1,7 +1,5 @@
 # docker-arch-spotify-PaXmarked
 
-[![Build Status](https://travis-ci.org/orsonteodoro/docker-arch-spotify-PaXmarked.svg?branch=master)](https://travis-ci.org/orsonteodoro/docker-arch-spotify-PaXmarked)
-
 This is a container containing Spotify.  It works with ALSA but can be configured or altered for PulseAudio.
 
 It should work with hardened kernels with grsecurity.
