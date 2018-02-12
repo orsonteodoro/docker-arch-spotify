@@ -21,7 +21,10 @@
 
 echo "Removing cruft here and security hazards"
 
+echo "Removing pacman distfiles"
 sudo rm -rf /var/cache/pacman/
+
+echo "Removing AUR folder"
 sudo rm -rf /home/spotify/aur/
 
 sudo pacman --noconfirm -R git
@@ -54,6 +57,9 @@ rm /usr/bin/xargs
 echo "Removing programming languages  headers"
 rm -rf /usr/lib/gcc/*/*/include
 rm -rf /usr/include
+
+echo "Removing pacman package db info"
+rm -rf /var/lib/pacman/
 
 echo "Removing rm"
 sudo echo "" > /bin/rm
