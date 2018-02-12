@@ -22,6 +22,7 @@
 echo "Removing cruft here and security hazards"
 
 sudo rm -rf /var/cache/pacman/
+sudo rm -rf /home/spotify/aur/
 
 sudo pacman --noconfirm -R git
 
