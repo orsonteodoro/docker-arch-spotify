@@ -58,6 +58,14 @@ echo "Removing programming languages  headers"
 rm -rf /usr/lib/gcc/*/*/include
 rm -rf /usr/include
 
+echo "Removing gcc stuff"
+rm -rf /usr/lib/gcc/x86_64-pc-linux-gnu/*/cc*
+
+echo "Removing documentation"
+rm -rf /usr/share/man
+rm -rf /usr/share/doc
+rm -rf /usr/share/gtk-doc
+
 echo "Removing pacman package db info"
 rm -rf /var/lib/pacman/
 
