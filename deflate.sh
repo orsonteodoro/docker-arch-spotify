@@ -21,6 +21,8 @@
 
 echo "Removing cruft here and security hazards"
 
+sudo rm -rf /var/cache/pacman/
+
 sudo pacman --noconfirm -R git
 
 echo "Removing inetutils (containing telnet)"
