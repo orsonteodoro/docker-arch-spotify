@@ -24,4 +24,5 @@ debug="$1"
 if [ -n "$debug" ]; then
 	sudo pacman --noconfirm -S nano
 	#sudo pacman --noconfirm -S mplayer
+	sudo pacman --noconfirm -S mesa-demos
 fi

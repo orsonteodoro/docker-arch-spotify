@@ -50,4 +50,7 @@ if [ -n "$USE_CONTAINER_PULSEAUDIO" ]; then
 	sudo -u spotify pulseaudio -D --exit-idle-time=-1 -v || return 1
 fi
 
-PULSE_SERVER="unix:/run/user/1000/pulse/native" sudo spotify
+#glxgears
+#glxinfo
+PULSE_SERVER="unix:/run/user/1000/pulse/native" sudo -u spotify spotify
+# sudo /bin/bash # For debugging only.  Mutually exclusive with one of the above lines

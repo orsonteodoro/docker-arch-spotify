@@ -24,5 +24,5 @@ travisci="$1"
 if [ -n "$travisci" ]; then
 	echo "This is a simple tests to see if it is pax marked properly."
 	echo $(spotify --help) | grep 'Output the version of the app.' || return 1
-	paxctl -v /usr/share/spotify/spotify | grep -e " -----m------ " || return 1
+	paxctl -v /opt/spotify/spotify | grep -e " -----m------ " || return 1
 fi

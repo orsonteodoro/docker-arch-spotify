@@ -1,10 +1,12 @@
 # docker-arch-spotify-PaXmarked
 
-This is a container containing Spotify.  It works with ALSA but can be configured or altered for PulseAudio.
+This is a container containing Spotify.  It works with ALSA but can be 
+configured or altered for PulseAudio.
 
 It should work with hardened kernels with grsecurity.
 
-Since it uses ALSA, you may only be able to use it in the container once your host releases the sound card.
+Since it uses ALSA, you may only be able to use it in the container once your 
+host releases the sound card.
 
 It was tested on a host with Alpine Linux.
 
@@ -12,11 +14,19 @@ This requires the Docker package to use.
 
 1. `git clone https://github.com/orsonteodoro/docker-arch-spotify.git`
 2. `cd docker-arch-spotify`
-3. `chmod +x compile.sh`
-4. `./compile.sh`
-5. `chmod +x run.sh`
-6. `./run.sh`
-7.  If you use Facebook, you can use your Facebook user name and password to logon.
+3. Edit run.sh to add or changes the device files for container that
+   expose your video card drivers on the contents of /dev/dri files on
+   the host system.
+4. `chmod +x compile.sh`
+5. `./compile.sh`
+6. `chmod +x run.sh`
+7. `./run.sh`
+8.  If you use Facebook, you can use your Facebook user name and password to
+    logon.
+
+### Notes
+
+* It is not necessary to install video drivers in the container.
 
 ### Bugs
 

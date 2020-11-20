@@ -27,6 +27,9 @@ ALSA_CARD="hw:0,0"
 
 USE_CONTAINER_PULSEAUDIO=
 
+# /dev/dri/card0 and /dev/dri/renderD128 must be changed based on your video card drivers
+# These are required for Spotify to work.
+
 docker run -i -e DISPLAY="$DISPLAY" \
 	      -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
 	      -v /run/user/$USER_UID/pulse:/run/user/$USER_UID/pulse  \
@@ -34,4 +37,6 @@ docker run -i -e DISPLAY="$DISPLAY" \
 	      -e AUDIO_GID=$AUDIO_GID \
 	      -e ALSA_CARD="$ALSA_CARD" \
 	      --device /dev/snd \
+	      --device /dev/dri/card0 \
+	      --device /dev/dri/renderD128 \
 	      -t spotify

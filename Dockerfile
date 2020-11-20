@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-FROM base/archlinux
+FROM archlinux/archlinux:base
 
 MAINTAINER Orson Teodoro <orsonteodoro@hotmail.com>
 
@@ -50,26 +50,36 @@ WORKDIR /home/spotify
 RUN mkdir aur
 RUN cd aur
 
+RUN gpg --keyserver keyserver.ubuntu.com --recv-keys FCF986EA15E6E293A5644F10B4322F04D67658D8
+RUN curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
+
 WORKDIR /home/spotify/aur
-RUN git clone https://aur.archlinux.org/spotify.git
-WORKDIR /home/spotify/aur/spotify
+RUN git clone https://aur.archlinux.org/yay.git
+WORKDIR /home/spotify/aur/yay
 RUN sudo -u spotify makepkg --noconfirm -si
 
-WORKDIR /home/spotify/aur/
-RUN git clone https://aur.archlinux.org/paxctl.git
-WORKDIR /home/spotify/aur/paxctl
-RUN sudo -u spotify makepkg --noconfirm -si
-
-#for grsecurity kernels like Alpine and Hardened Gentoo
-RUN sudo paxctl -C /usr/share/spotify/spotify
-RUN sudo paxctl -z /usr/share/spotify/spotify
-RUN sudo paxctl -m /usr/share/spotify/spotify
+RUN sudo -u spotify yay --noconfirm -Syyu
+RUN sudo -u spotify yay -S --noconfirm paxctl
+RUN sudo -u spotify yay -S --noconfirm spotify
 
 RUN sudo pacman --noconfirm -S pulseaudio
 RUN sudo pacman --noconfirm -S pulseaudio-alsa
 RUN sudo pacman --noconfirm -S alsa-lib
 
 RUN sudo pacman --noconfirm -S alsa-utils
+
+# Optional dependencies for spotify
+RUN sudo -u spotify yay --noconfirm -S ffmpeg-compat-57 # Adds support for playback of local files
+RUN sudo -u spotify yay --noconfirm -S zenity # Adds support for importing local files
+RUN sudo -u spotify yay --noconfirm -S libnotify # Desktop notifications
+
+# For login prompt
+RUN sudo pacman --noconfirm -S firefox
+
+# For grsecurity kernels like Alpine and Hardened Gentoo
+RUN sudo paxctl -C /opt/spotify/spotify
+RUN sudo paxctl -z /opt/spotify/spotify
+RUN sudo paxctl -m /opt/spotify/spotify
 
 ADD debug-tools.sh /usr/bin/debug-tools.sh
 RUN sudo chmod +x /usr/bin/debug-tools.sh
@@ -82,9 +92,6 @@ USER root
 RUN echo -e ".ifexists module-x11-publish.so\nload-module module-x11-publish\n.endif\n" >> /etc/pulse/default.pa || return 1
 USER spotify
 
-ADD start-spotify.sh /usr/bin/start-spotify.sh
-RUN sudo chmod +x /usr/bin/start-spotify.sh
-
 WORKDIR /home/spotify
 
 ADD travisci-test.sh /usr/bin/travisci-test.sh
@@ -92,10 +99,13 @@ RUN sudo chmod +x /usr/bin/travisci-test.sh
 ARG travisci
 RUN sudo /usr/bin/travisci-test.sh $travisci
 
-#harden environment... make it static
+ADD start-spotify.sh /usr/bin/start-spotify.sh
+RUN sudo chmod +x /usr/bin/start-spotify.sh
+
+# Harden environment... make it static
 ADD deflate.sh /usr/bin/deflate.sh
 RUN sudo chmod +x /usr/bin/deflate.sh
-RUN sudo /usr/bin/deflate.sh
+#RUN sudo /usr/bin/deflate.sh
 
 USER spotify
 
