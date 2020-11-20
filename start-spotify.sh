@@ -53,4 +53,4 @@ fi
 #glxgears
 #glxinfo
 PULSE_SERVER="unix:/run/user/1000/pulse/native" sudo -u spotify spotify
-# sudo /bin/bash # For debugging only.  Mutually exclusive with one of the above lines
+#sudo /bin/bash # For debugging only.  Mutually exclusive with one of the above lines

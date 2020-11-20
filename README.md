@@ -14,14 +14,11 @@ This requires the Docker package to use.
 
 1. `git clone https://github.com/orsonteodoro/docker-arch-spotify.git`
 2. `cd docker-arch-spotify`
-3. Edit run.sh to add or changes the device files for container that
-   expose your video card drivers on the contents of /dev/dri files on
-   the host system.
-4. `chmod +x compile.sh`
-5. `./compile.sh`
-6. `chmod +x run.sh`
-7. `./run.sh`
-8.  If you use Facebook, you can use your Facebook user name and password to
+3. `chmod +x compile.sh`
+4. `./compile.sh`
+5. `chmod +x run.sh`
+6. `./run.sh`
+7.  If you use Facebook, you can use your Facebook user name and password to
     logon.
 
 ### Notes
